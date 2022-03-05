@@ -1,0 +1,162 @@
+{% extends "public/templates/public_template.html" %}
+
+{% import "macros/input_macros.html" as im %}
+
+{% block title %} Jinja {%endblock title %}
+
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Jinja templates</h1>
+            <hr />
+
+            <h4>Accessing an objects value</h4>
+            <p>Hello {{ my_name }}!</p>
+            <p>Hello {{ cool }}!</p>
+            
+            <hr>
+            <h4>Looping with variable</h4>
+            <ul>
+                {% for lang in langs %} 
+
+                <li> {{ lang }} </li>
+                
+                {% endfor %}
+            </ul>
+            
+            <hr>
+            <h4>Looping with index</h4>
+            <ul>
+                {% for lang in langs %} 
+
+                <li> {{ loop.index }}: {{ lang }} </li>
+                
+                {% endfor %}
+            </ul>
+
+            <hr>
+            <h4>Looping with dictionary</h4>
+            <ul>
+                {% for k, v in friends.items() %} 
+
+                <li> {{ k }}: {{ v }} </li>
+                
+                {% endfor %}
+            </ul>
+
+            <hr>
+            <h4>Looping with dictionary keys </h4>
+            <ul>
+                {% for k in friends.keys() %} 
+
+                <li> {{ k }} </li>
+                
+                {% endfor %}
+            </ul>
+
+            <hr>
+            <h4>Access list member </h4>
+            <ul>
+
+                <li> {{ langs[0] }} </li>
+                
+            </ul>
+
+            <hr>
+            <h4>Access dictionary member </h4>
+            <ul>
+
+                <li> {{ friends["Tony"] }} </li>
+                
+            </ul>
+
+            <hr>
+            <h4>Access class atributes </h4>
+            <ul>
+
+                <li> {{ my_remote.name }} </li>
+                
+            </ul>
+
+            <hr>
+            <h4>Unpack the variables </h4>
+            <ul>
+
+                {% set a,b = colors %}
+                <li> {{ a }}</li>
+                <li> {{ b }}</li>
+                
+            </ul>
+
+            <hr>
+            <h4>Call a function </h4>
+            <ul>
+
+                <p>{{ repeat("Flask is good", 10) }}</p>
+                
+            </ul>
+
+            <hr>
+            <h4>Calling a class method </h4>
+            <ul>
+
+                <p>{{ my_remote.clone() }}</p>
+                
+            </ul>
+
+            <hr>
+            <h4>Conditional Operators </h4>
+            <ul>
+                {% if cool %}
+                    <p>Cool is {{ cool }}</p>
+                {% endif %}
+            </ul>
+
+            <hr>
+            <h4>Comparisons Operators </h4>
+            <ul>
+                {% if my_age < 18 %}
+                    <p>No entry</p>
+                {% elif my_age < 26 %}
+                    <p>Nearly old enough</p>
+                {% else %}
+                    <p>You may enter </p>
+                {% endif %}
+            </ul>
+
+            <hr>
+            <h4> Jinja template filters/functions</h4>
+                <li> {{ langs|length }}</li>
+                <li> {{ my_name|reverse }}</li>
+                <li> {{ my_name|upper }}</li>
+            <p> <h5>Joins</h5> </p>
+                <li> {{ langs|join(", ") }} </li>
+
+            <hr>
+            <h4> Custom template filters/functions</h4>
+                <p>{{ date|clean_date }}</p>
+            <hr>
+            <h4> Escaping or avoiding XSS</h4>
+                <p> {{ my_html|safe }}</p> <!-- using safe here treats this like an html statement despite it not being like one-->
+
+            <hr>
+            <h4> Suspicious JS</h4>
+            <p> {{ sus }}</p> <!-- if we push safe here, it will execute the block ...so must be carefulr using safe -->
+
+            <hr>
+            <h4>Macros</h4>
+
+             {{ im.input(label="Enter your name", name="name", id="name", placeholder="Please enter your name") }}
+
+             {{ im.input(label="Enter your age", type="number", name="age", id="age", placeholder="Please enter your age") }}
+
+             {{ im.input(label="Enter your password", type="password", name="password", id="password", placeholder="Please enter your password") }}
+
+        </div>
+    </div>
+</div>  
+
+{% endblock main %}
